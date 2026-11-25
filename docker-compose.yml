@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  erp:
+    build: .
+    container_name: nit_pasil_order_to_audit_erp
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+    restart: unless-stopped

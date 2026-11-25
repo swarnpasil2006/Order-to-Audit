@@ -1,0 +1,558 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Order-to-Audit ERP · Project Presentation Deck</title>
+<style>
+:root {
+  --bg-dark: #0f172a;
+  --bg-card: #1e293b;
+  --border: #334155;
+  --tx-primary: #f8fafc;
+  --tx-muted: #94a3b8;
+  --accent: #ea580c;
+  --accent-light: #f97316;
+  --success: #22c55e;
+  --danger: #ef4444;
+  --info: #38bdf8;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: var(--bg-dark);
+  color: var(--tx-primary);
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  user-select: none;
+}
+
+/* Header bar */
+.pres-header {
+  height: 54px;
+  background: rgba(15, 23, 42, 0.95);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  z-index: 10;
+}
+.pres-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  font-weight: 700;
+}
+.pres-brand-badge {
+  background: var(--accent);
+  color: #fff;
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-size: 11px;
+}
+.pres-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Slides container */
+.slides-viewport {
+  flex: 1;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 40px;
+}
+.slide {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 40px 60px;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(40px);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.slide.active {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(0);
+}
+
+/* Slide Typography */
+.slide-category {
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+.slide-title {
+  font-size: 32px;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 16px;
+  color: #ffffff;
+}
+.slide-subtitle {
+  font-size: 16px;
+  color: var(--tx-muted);
+  max-width: 850px;
+  line-height: 1.5;
+  margin-bottom: 28px;
+}
+
+/* Cards & Layouts */
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+.card h4 {
+  font-size: 16px;
+  margin-bottom: 8px;
+  color: var(--info);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.card p {
+  font-size: 13.5px;
+  color: var(--tx-muted);
+  line-height: 1.45;
+}
+
+/* Data Table */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+th, td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+}
+th {
+  background: rgba(255,255,255,0.05);
+  color: var(--tx-muted);
+  font-size: 11.5px;
+  text-transform: uppercase;
+}
+
+/* Badges */
+.badge-pass {
+  background: rgba(34, 197, 94, 0.2);
+  color: var(--success);
+  border: 1px solid rgba(34, 197, 94, 0.4);
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+/* Footer / Progress */
+.pres-footer {
+  height: 48px;
+  background: rgba(15, 23, 42, 0.95);
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+}
+.progress-bar-bg {
+  flex: 1;
+  max-width: 400px;
+  height: 6px;
+  background: var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+  margin: 0 16px;
+}
+.progress-bar-fill {
+  height: 100%;
+  background: var(--accent);
+  transition: width 0.3s ease;
+}
+button {
+  background: var(--bg-card);
+  color: var(--tx-primary);
+  border: 1px solid var(--border);
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+button:hover {
+  background: rgba(255,255,255,0.1);
+  border-color: var(--accent);
+}
+button.primary {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+button.primary:hover {
+  background: var(--accent-light);
+}
+</style>
+</head>
+<body>
+
+<header class="pres-header">
+  <div class="pres-brand">
+    <span>National Institute of Technology (NIT)</span>
+    <span class="pres-brand-badge">PASIL Foods ERP 2.0</span>
+  </div>
+  <div class="pres-controls">
+    <a href="Order-to-Audit Prototype.html" target="_blank" style="text-decoration:none"><button class="primary">Launch Live App ↗</button></a>
+    <button onclick="toggleFullscreen()">⛶ Fullscreen</button>
+  </div>
+</header>
+
+<main class="slides-viewport">
+
+  <!-- Slide 1: Cover -->
+  <div class="slide active">
+    <div class="slide-category">Final Year Capstone Project · Engineering & Industry Solution</div>
+    <h1 class="slide-title" style="font-size:42px">Order-to-Audit: Batch Recipe Costing & GST Compliance ERP</h1>
+    <p class="slide-subtitle">
+      A unified, zero-dependency manufacturing resource planning and continuous audit engine tailored for traditional food processing SMEs.
+    </p>
+    <div class="grid-3" style="max-width:900px;margin-top:20px">
+      <div class="card">
+        <h4>🏛 Institution</h4>
+        <p>National Institute of Technology (NIT)<br>Department of Computer Science & Engineering</p>
+      </div>
+      <div class="card">
+        <h4>🏢 Enterprise Partner</h4>
+        <p>PASIL Foods Private Limited<br>Madurai, Tamil Nadu (FSSAI Lic. 12423000000123)</p>
+      </div>
+      <div class="card">
+        <h4>⚙ Architecture</h4>
+        <p>Integer-Paise Core · Dual-Mode (Offline SPA / REST API) · 100% Benchmark Verified</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 2: Problem Statement -->
+  <div class="slide">
+    <div class="slide-category">Problem Definition & Industry Context</div>
+    <h2 class="slide-title">The "Triple Leakage" in Traditional SME Manufacturing</h2>
+    <p class="slide-subtitle">
+      Small-scale snack manufacturers in South India process metric tons of agricultural commodities weekly, yet lose up to 14% of gross revenue through three systemic vulnerabilities:
+    </p>
+    <div class="grid-3">
+      <div class="card" style="border-left:4px solid var(--danger)">
+        <h4 style="color:var(--danger)">1. Untracked Recipe Variance</h4>
+        <p>High-value inputs (refined cooking oil, chickpea flour, spices) fluctuate in usage. Without batch variance monitoring, kitchen over-issue quietly erodes margins.</p>
+      </div>
+      <div class="card" style="border-left:4px solid var(--accent)">
+        <h4 style="color:var(--accent)">2. Stock Reservation Disconnect</h4>
+        <p>Salesmen book trade orders in the field while factory dispatchers run out of finished goods, causing unmanaged delivery shortages and customer friction.</p>
+      </div>
+      <div class="card" style="border-left:4px solid var(--info)">
+        <h4 style="color:var(--info)">3. GST Non-Compliance Penalties</h4>
+        <p>Confusion between intra-state (CGST+SGST) and inter-state (IGST) taxation, missing delivery challans (Rule 55), and lack of e-Way bills risk heavy regulatory seizure.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 3: Unified Solution Architecture -->
+  <div class="slide">
+    <div class="slide-category">System Architecture & Event Flow</div>
+    <h2 class="slide-title">Single Entry Point · Synchronous Multi-Ledger Propagation</h2>
+    <p class="slide-subtitle">
+      A single sales order entry triggers synchronized updates across inventory reservations, production shopfloor, statutory tax billing, and monthly returns.
+    </p>
+    <div class="grid-2">
+      <div class="card">
+        <h4>🔄 Operational Pipeline</h4>
+        <ol style="padding-left:20px;font-size:13.5px;color:var(--tx-muted);line-height:1.7">
+          <li><strong>Salesman Order Booking</strong>: Real-time credit limit check & stock availability test.</li>
+          <li><strong>Stock Reservation Engine</strong>: Automatic lock on available FG; deficit triggers ON HOLD.</li>
+          <li><strong>BOM Recipe Batch Run</strong>: Stores issue compared against standard recipe (|Δ| > 3% flags alert).</li>
+          <li><strong>Statutory Invoicing</strong>: Automatic tax breakdown (CGST/SGST vs IGST) & A4 PDF generation.</li>
+          <li><strong>Fulfillment</strong>: Dispatch updates finished goods, issues Delivery Challan (Rule 55) & E-Way Bill (Rule 138).</li>
+        </ol>
+      </div>
+      <div class="card">
+        <h4>💎 Engineering Principles</h4>
+        <ul style="padding-left:20px;font-size:13.5px;color:var(--tx-muted);line-height:1.7">
+          <li><strong>Zero Floating Point Bugs</strong>: Monetary amounts stored as integer paise (₹1 = 100p).</li>
+          <li><strong>Weighted-Average Valuation</strong>: Dynamic moving average prevents valuation distortions.</li>
+          <li><strong>Double-Entry Audit Log</strong>: Continuous ledger with running cumulative balance.</li>
+          <li><strong>Role-Based Perspectives</strong>: Tailored views for Salesman, Supervisor, Dispatcher & Auditor.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 4: Production BOM & Variance Costing -->
+  <div class="slide">
+    <div class="slide-category">Production & Cost Accounting Engine</div>
+    <h2 class="slide-title">Recipe Variance & True Unit Cost per Packet</h2>
+    <p class="slide-subtitle">
+      Murukku 200 g standard recipe produces 200 packets per batch. The costing engine allocates exact materials and manufacturing overheads:
+    </p>
+    <div class="grid-2">
+      <div class="card">
+        <h4>📋 Standard BOM vs Actual (Run #1 Benchmark)</h4>
+        <table>
+          <thead>
+            <tr><th>Ingredient</th><th>Standard</th><th>Actual</th><th>Var %</th><th>Audit</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Flour</td><td>40.0 kg</td><td>40.0 kg</td><td>0.0%</td><td><span class="badge-pass">Normal</span></td></tr>
+            <tr><td>Cooking Oil</td><td>10.0 L</td><td>10.5 L</td><td style="color:var(--danger)">+5.0%</td><td><span style="color:var(--danger)">⚑ Alert</span></td></tr>
+            <tr><td>Spices</td><td>1.2 kg</td><td>1.2 kg</td><td>0.0%</td><td><span class="badge-pass">Normal</span></td></tr>
+            <tr><td>Pouches</td><td>200 pcs</td><td>194 pcs</td><td>-3.0%</td><td><span class="badge-pass">Normal</span></td></tr>
+            <tr><td>Cartons</td><td>10 pcs</td><td>9 pcs</td><td>-10.0%</td><td><span style="color:var(--danger)">⚑ Alert</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card">
+        <h4>💰 Unit Costing Waterfall (₹50.00 MRP)</h4>
+        <div style="font-size:14px;line-height:1.8;margin-top:8px">
+          <div>Raw Materials Consumed: <strong>₹4,055.00</strong> (₹21.57 / pkt)</div>
+          <div>Direct Labour Overheads: <strong>₹1,200.00</strong></div>
+          <div>Gas & Electricity Overheads: <strong>₹600.00</strong></div>
+          <div style="border-top:1px solid var(--border);padding-top:6px">Total Batch Cost: <strong>₹5,855.00</strong> across 188 good packets</div>
+          <div style="font-size:16px;color:var(--info);font-weight:800;margin-top:6px">Realized Cost / Packet: ₹31.14</div>
+          <div style="font-size:16px;color:var(--success);font-weight:800">Gross Operating Margin: 37.7%</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 5: Statutory Tax & Logistics Compliance -->
+  <div class="slide">
+    <div class="slide-category">Taxation & Logistics Framework</div>
+    <h2 class="slide-title">GST Compliance: Invoices, Challans & E-Way Bills</h2>
+    <p class="slide-subtitle">
+      Automated compliance engine ensures 100% adherence to Indian Goods & Services Tax (GST) statutes:
+    </p>
+    <div class="grid-3">
+      <div class="card">
+        <h4>🧾 Tax Invoice (Rule 48)</h4>
+        <p>• Supplier & Buyer GSTINs<br>• HSN Code 1905 (Namkeen)<br>• Intra-state CGST+SGST (2.5% each)<br>• Inter-state IGST (5.0%)<br>• Indian numbering currency in words</p>
+      </div>
+      <div class="card">
+        <h4>📜 Delivery Challan (Rule 55)</h4>
+        <p>• Mandatory goods transit document<br>• Consignor & Consignee details<br>• Vehicle registration (TN-58-AL-4482)<br>• Driver & Dispatcher signatures</p>
+      </div>
+      <div class="card">
+        <h4>🚚 e-Way Bill (Rule 138)</h4>
+        <p>• Form GST EWB-01 generation<br>• Part-A consignment values<br>• Part-B road transporter ID<br>• Official GSTR-1 JSON export ready for gst.gov.in portal</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 6: Material Requirements Planning (MRP) -->
+  <div class="slide">
+    <div class="slide-category">Procurement & Demand Forecasting</div>
+    <h2 class="slide-title">Material Requirements Planning (MRP) & Auto-PO</h2>
+    <p class="slide-subtitle">
+      Translates sales pipeline demand into exact factory raw material procurement orders:
+    </p>
+    <div class="grid-2">
+      <div class="card">
+        <h4>⚙ Deficit Calculation Engine</h4>
+        <p style="margin-bottom:10px">When production targets (e.g. 400 packets) or pending order shortages occur, MRP compares requirements against live stores ledger:</p>
+        <div style="background:rgba(0,0,0,0.3);padding:10px;border-radius:6px;font-family:monospace;font-size:12px;line-height:1.6">
+          Required Flour = 40 kg * 2 batches = 80 kg<br>
+          Stores Stock = 120 kg (Surplus +40 kg)<br>
+          Required Pouches = 200 * 2 = 400 pcs<br>
+          Stores Stock = 306 pcs (Deficit: -94 pcs)
+        </div>
+      </div>
+      <div class="card">
+        <h4>📜 Automated Purchase Order (PO) Generation</h4>
+        <p style="margin-bottom:10px">One-click triggers official Purchase Orders routed to contracted mills:</p>
+        <ul style="padding-left:18px;font-size:13px;line-height:1.7;color:var(--tx-muted)">
+          <li><strong>Sri Murugan Flour Mills</strong>: Flour lot orders (PO/2026-27/001)</li>
+          <li><strong>Kaveri Agro Refineries</strong>: Bulk cooking oil barrels (PO/2026-27/002)</li>
+          <li><strong>South India Pack Print</strong>: Printed pouches & cartons (PO/2026-27/003)</li>
+          <li>Automatic goods inward receipt integration into stock ledger</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 7: Benchmark Verification Matrix -->
+  <div class="slide">
+    <div class="slide-category">Live Experimental Verification</div>
+    <h2 class="slide-title">Section 5 Benchmark: 13 / 13 Verification Match</h2>
+    <p class="slide-subtitle">
+      Automated verification suite executes the complete reference cycle with 100% mathematical accuracy:
+    </p>
+    <div class="card" style="padding:12px">
+      <table>
+        <thead>
+          <tr><th>Checkpoint</th><th>Expected Specification</th><th>System Output</th><th>Status</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Finished Goods after Run #1</td><td>238 packets</td><td>238 packets</td><td><span class="badge-pass">✓ MATCH</span></td></tr>
+          <tr><td>Finished Goods after Dispatch</td><td>88 packets</td><td>88 packets</td><td><span class="badge-pass">✓ MATCH</span></td></tr>
+          <tr><td>Distributor B Shortage Deficit</td><td>32 packets</td><td>32 packets</td><td><span class="badge-pass">✓ MATCH</span></td></tr>
+          <tr><td>Flour Closing Balance</td><td>120.0 kg</td><td>120.0 kg</td><td><span class="badge-pass">✓ MATCH</span></td></tr>
+          <tr><td>Oil Closing Balance</td><td>19.5 L</td><td>19.5 L</td><td><span class="badge-pass">✓ MATCH</span></td></tr>
+          <tr><td>Batch Yield Variance</td><td>-6.0%</td><td>-6.0%</td><td><span class="badge-pass">✓ MATCH</span></td></tr>
+          <tr><td>Invoice 1 Total Amount</td><td>₹7,875.00</td><td>₹7,875.00</td><td><span class="badge-pass">✓ MATCH</span></td></tr>
+          <tr><td>Retailer A Net Outstanding</td><td>₹3,875.00</td><td>₹3,875.00</td><td><span class="badge-pass">✓ MATCH</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Slide 8: Technical Validation & Test Suite -->
+  <div class="slide">
+    <div class="slide-category">Quality Assurance & CI/CD</div>
+    <h2 class="slide-title">Automated Test Suite: 39 / 39 Unit Tests Passing</h2>
+    <p class="slide-subtitle">
+      Headless automated test runner (`node test_suite.js`) validates all architectural layers:
+    </p>
+    <div class="grid-3">
+      <div class="card">
+        <h4>🧪 Domain Tests (1-4)</h4>
+        <p>• Ledger opening balances<br>• Weighted-average price update<br>• Recipe variance tolerance triggers<br>• Stock reservation & shortage isolation</p>
+      </div>
+      <div class="card">
+        <h4>⚖ Statutory Tests (5-8)</h4>
+        <p>• CGST/SGST vs IGST split<br>• Physical dispatch stock deduction<br>• Customer accounts receivable<br>• Credit note stock restoration</p>
+      </div>
+      <div class="card">
+        <h4>⚡ System Tests (9-10)</h4>
+        <p>• Indian currency words generator<br>• Section 5 benchmark cycle<br>• Zero external dependencies<br>• Execution time: <strong>< 15ms</strong></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 9: Conclusion & Defense -->
+  <div class="slide">
+    <div class="slide-category">Summary & Academic Contribution</div>
+    <h2 class="slide-title">Conclusion & Open for Viva Voce Q&A</h2>
+    <p class="slide-subtitle">
+      Order-to-Audit demonstrates that enterprise-grade manufacturing accounting, batch costing, and statutory compliance can be delivered in a lightweight, accessible digital solution.
+    </p>
+    <div class="grid-2">
+      <div class="card">
+        <h4>🎓 Project Deliverables</h4>
+        <ul style="padding-left:18px;font-size:13px;line-height:1.7;color:var(--tx-muted)">
+          <li>Interactive Single-Page ERP (`Order-to-Audit Prototype.html`)</li>
+          <li>Comprehensive Automated Test Suite (`test_suite.js`)</li>
+          <li>Full-Stack REST API Server (`server.js`)</li>
+          <li>Formal Engineering Dossier & DFD/ERD (`PROJECT_REPORT.md`)</li>
+          <li>Interactive Defense Presentation Deck (`Project_Presentation.html`)</li>
+        </ul>
+      </div>
+      <div class="card" style="text-align:center;display:flex;flex-direction:column;justify-content:center;align-items:center">
+        <h3 style="font-size:24px;color:var(--success);margin-bottom:8px">Ready for Evaluation</h3>
+        <p style="margin-bottom:16px">Thank you to the Faculty Review Committee & Project Mentors.</p>
+        <button class="primary" onclick="goToSlide(0)">↺ Restart Presentation</button>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer class="pres-footer">
+  <div style="font-size:12px;color:var(--tx-muted)">
+    Slide <strong id="slideCurrent">1</strong> of <span id="slideTotal">9</span>
+  </div>
+  <div class="progress-bar-bg">
+    <div class="progress-bar-fill" id="progressFill" style="width:11%"></div>
+  </div>
+  <div style="display:flex;gap:6px">
+    <button onclick="prevSlide()">◀ Prev (←)</button>
+    <button onclick="nextSlide()">Next (→) ▶</button>
+  </div>
+</footer>
+
+<script>
+let currentSlide = 0;
+const slides = document.querySelectorAll('.slide');
+const totalSlides = slides.length;
+
+document.getElementById('slideTotal').textContent = totalSlides;
+
+function updateSlideUI() {
+  slides.forEach((s, idx) => {
+    s.classList.toggle('active', idx === currentSlide);
+  });
+  document.getElementById('slideCurrent').textContent = currentSlide + 1;
+  const pct = Math.round(((currentSlide + 1) / totalSlides) * 100);
+  document.getElementById('progressFill').style.width = pct + '%';
+}
+
+function nextSlide() {
+  if (currentSlide < totalSlides - 1) {
+    currentSlide++;
+    updateSlideUI();
+  }
+}
+
+function prevSlide() {
+  if (currentSlide > 0) {
+    currentSlide--;
+    updateSlideUI();
+  }
+}
+
+function goToSlide(n) {
+  currentSlide = Math.max(0, Math.min(totalSlides - 1, n));
+  updateSlideUI();
+}
+
+// Keyboard controls
+window.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+    e.preventDefault();
+    nextSlide();
+  } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+    e.preventDefault();
+    prevSlide();
+  } else if (e.key === 'Home') {
+    goToSlide(0);
+  } else if (e.key === 'End') {
+    goToSlide(totalSlides - 1);
+  }
+});
+
+// Fullscreen Toggle
+function toggleFullscreen() {
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen().catch(() => {});
+  } else {
+    document.exitFullscreen().catch(() => {});
+  }
+}
+</script>
+</body>
+</html>

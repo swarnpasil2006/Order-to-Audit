@@ -1,0 +1,20 @@
+{
+  "name": "pasil-foods-order-to-audit-erp",
+  "version": "2.0.0",
+  "description": "Enterprise Order-to-Audit ERP & GST Accounting Suite for PASIL Foods Private Limited",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node test_suite.js"
+  },
+  "keywords": [
+    "erp",
+    "gst-compliance",
+    "manufacturing",
+    "cost-accounting",
+    "audit-trail",
+    "inventory-management"
+  ],
+  "author": "NIT - PASIL Project Team",
+  "license": "MIT"
+}

@@ -1,0 +1,276 @@
+{
+  "products": {
+    "mur": {
+      "id": "mur",
+      "name": "Murukku 200 g",
+      "hsn": "1905",
+      "unit": "packets",
+      "price": 5000,
+      "gstRate": 5,
+      "standardYield": 200,
+      "bom": {
+        "flour": 40,
+        "oil": 10,
+        "spice": 1.2,
+        "pouch": 200,
+        "carton": 10
+      }
+    }
+  },
+  "customers": {
+    "A": {
+      "id": "A",
+      "name": "Retailer A",
+      "state": "Tamil Nadu",
+      "stateCode": "33",
+      "gstin": "33AAAAA1234A1Z5",
+      "city": "Madurai",
+      "creditLimit": 5000000
+    },
+    "B": {
+      "id": "B",
+      "name": "Distributor B",
+      "state": "Karnataka",
+      "stateCode": "29",
+      "gstin": "29BBBBB5678B1Z2",
+      "city": "Bengaluru",
+      "creditLimit": 10000000
+    }
+  },
+  "vendors": {
+    "V1": {
+      "id": "V1",
+      "name": "Sri Murugan Flour Mills",
+      "state": "Tamil Nadu",
+      "gstin": "33MMM1234M1Z1"
+    },
+    "V2": {
+      "id": "V2",
+      "name": "Kaveri Agro Oil Refineries",
+      "state": "Tamil Nadu",
+      "gstin": "33KKK5678K1Z9"
+    },
+    "V3": {
+      "id": "V3",
+      "name": "South India Pack Print Ltd",
+      "state": "Tamil Nadu",
+      "gstin": "33SSS9999S1Z4"
+    }
+  },
+  "led": [
+    {
+      "it": "flour",
+      "q": 100000,
+      "val": 420000,
+      "src": "Opening",
+      "note": "Opening balance as per ledger",
+      "date": "2026-11-25"
+    },
+    {
+      "it": "oil",
+      "q": 30000,
+      "val": 420000,
+      "src": "Opening",
+      "note": "Opening balance as per ledger",
+      "date": "2026-11-25"
+    },
+    {
+      "it": "spice",
+      "q": 5000,
+      "val": 100000,
+      "src": "Opening",
+      "note": "Opening balance as per ledger",
+      "date": "2026-11-25"
+    },
+    {
+      "it": "pouch",
+      "q": 500000,
+      "val": 125000,
+      "src": "Opening",
+      "note": "Opening balance as per ledger",
+      "date": "2026-11-25"
+    },
+    {
+      "it": "carton",
+      "q": 30000,
+      "val": 45000,
+      "src": "Opening",
+      "note": "Opening balance as per ledger",
+      "date": "2026-11-25"
+    },
+    {
+      "it": "mur",
+      "q": 50000,
+      "val": 150000,
+      "src": "Opening",
+      "note": "Opening balance as per ledger",
+      "date": "2026-11-25"
+    },
+    {
+      "it": "flour",
+      "q": 60000,
+      "val": 270000,
+      "src": "Purchase #1",
+      "note": "From Sri Murugan Flour Mills",
+      "date": "2026-11-25"
+    },
+    {
+      "it": "flour",
+      "q": -40000,
+      "val": -172500,
+      "src": "Run #1",
+      "note": "Issued to Batch #1",
+      "date": "2026-11-25"
+    },
+    {
+      "it": "oil",
+      "q": -10500,
+      "val": -147000,
+      "src": "Run #1",
+      "note": "Issued to Batch #1",
+      "date": "2026-11-25"
+    },
+    {
+      "it": "spice",
+      "q": -1200,
+      "val": -24000,
+      "src": "Run #1",
+      "note": "Issued to Batch #1",
+      "date": "2026-11-25"
+    },
+    {
+      "it": "pouch",
+      "q": -194000,
+      "val": -48500,
+      "src": "Run #1",
+      "note": "Issued to Batch #1",
+      "date": "2026-11-25"
+    },
+    {
+      "it": "carton",
+      "q": -9000,
+      "val": -13500,
+      "src": "Run #1",
+      "note": "Issued to Batch #1",
+      "date": "2026-11-25"
+    },
+    {
+      "it": "mur",
+      "q": 188000,
+      "val": 405500,
+      "src": "Run #1",
+      "note": "Good output (188 packets)",
+      "date": "2026-11-25"
+    },
+    {
+      "it": "mur",
+      "q": -150000,
+      "val": -350105,
+      "src": "INV/2026-27/0001",
+      "note": "Dispatched against INV/2026-27/0001",
+      "date": "2026-11-25"
+    }
+  ],
+  "orders": [
+    {
+      "id": 1,
+      "c": "A",
+      "sales": "Salesman A",
+      "prodId": "mur",
+      "q": 150,
+      "st": "dispatched",
+      "date": "2026-11-25"
+    },
+    {
+      "id": 2,
+      "c": "B",
+      "sales": "Salesman B",
+      "prodId": "mur",
+      "q": 120,
+      "st": "on_hold",
+      "date": "2026-11-25",
+      "short": 32
+    }
+  ],
+  "inv": [
+    {
+      "no": "INV/2026-27/0001",
+      "oid": 1,
+      "c": "A",
+      "prodId": "mur",
+      "q": 150,
+      "price": 5000,
+      "tx": 750000,
+      "cg": 18750,
+      "sg": 18750,
+      "ig": 0,
+      "tot": 787500,
+      "disp": true,
+      "date": "2026-11-25",
+      "irn": "IRN-DZ6U96K1"
+    }
+  ],
+  "pay": [
+    {
+      "id": 1,
+      "c": "A",
+      "a": 400000,
+      "date": "2026-11-25",
+      "mode": "NEFT",
+      "ref": "NEFT-Q77QE9"
+    }
+  ],
+  "runs": [
+    {
+      "id": 1,
+      "prodId": "mur",
+      "exp": 200,
+      "good": 188,
+      "mat": 405500,
+      "oh": 0,
+      "lines": [
+        {
+          "it": "flour",
+          "p": 40000,
+          "a": 40000,
+          "v": 0,
+          "flag": false
+        },
+        {
+          "it": "oil",
+          "p": 10000,
+          "a": 10500,
+          "v": 0.05,
+          "flag": true
+        },
+        {
+          "it": "spice",
+          "p": 1200,
+          "a": 1200,
+          "v": 0,
+          "flag": false
+        },
+        {
+          "it": "pouch",
+          "p": 200000,
+          "a": 194000,
+          "v": -0.03,
+          "flag": false
+        },
+        {
+          "it": "carton",
+          "p": 10000,
+          "a": 9000,
+          "v": -0.1,
+          "flag": true
+        }
+      ],
+      "yv": -0.06,
+      "date": "2026-11-25",
+      "batchNo": "BAT-2026-001"
+    }
+  ],
+  "seq": 2,
+  "ord": 3,
+  "benchResults": null
+}
